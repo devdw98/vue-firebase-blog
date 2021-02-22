@@ -3,10 +3,12 @@
     <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <site-title :title="mytitle" />
-      <!-- <v-toolbar-title>WelcomeToTheWorld</v-toolbar-title> -->
       <v-spacer />
       <v-btn icon to="/about">
         <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+      <v-btn icon @click="save">
+        <v-icon>mdi-check</v-icon>
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer app v-model="drawer">
@@ -41,6 +43,18 @@ export default {
     drawer: false,
     mytitle: 'WelcomeToTheWorld',
     myfooter: 'myfootertest'
-  })
+  }),
+  beforeCreate: function () {
+    console.log(this.$firebase)
+  },
+  methods: {
+    save: () => {
+      console.log('test!')
+      this.$firebase.database().ref().child('abcd').set({
+        title: 'abcd',
+        text: 'ttttt'
+      })
+    }
+  }
 }
 </script>
